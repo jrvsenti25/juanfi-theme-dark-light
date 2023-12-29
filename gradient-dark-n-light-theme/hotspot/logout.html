@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/toast.min.css" />
+    <link rel="stylesheet" href="assets/css/core.css" />
+    <link rel="stylesheet" href="assets/css/JuanFi.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <title>Connectivity Status</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="assets/js/config.js"></script>
+  </head>
+  <body id="loginBody" class="dark:!bg-slate-800 !bg-slate-100">
+    <div
+      class="container lg:max-w-4xl dark:!bg-slate-900 bg-white shadow-lg border-0"
+    >
+      <center>
+        <form action="$(link-logout)" name="logout">
+          <input type="hidden" name="erase-cookie" value="true" />
+        </form>
+
+        <div
+          class="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-4"
+        >
+          <div class="w-full lg:w-2/5 relative">
+            <div
+              id="themeChange"
+              class="absolute top-2 left-2 w-16 cursor-pointer"
+            >
+              <img
+                id="dayMode"
+                src="assets/img/daymode.svg"
+                alt="daymode-btn"
+                class="object-contain hidden"
+              />
+              <img
+                id="nightMode"
+                src="assets/img/nightmode.svg"
+                alt="nightmode-btn"
+                class="object-contain"
+              />
+            </div>
+            <div class="row px-3" style="margin-bottom: 20px">
+              <img src="assets/MainPic.PNG" class="img-fluid rounded-lg" />
+            </div>
+
+            <div class="info !hidden">
+              <center>
+                <div class="info-ip">
+                  <img src="assets/img/ip.png" width="20px" height="20px" />
+                  <span>$(ip)</span>
+                </div>
+                <div class="info-mac">
+                  <img src="assets/img/mac.png" width="20px" height="20px" />
+                  <span>$(mac)</span>
+                </div>
+              </center>
+            </div>
+
+            <div class="animate-bounce">
+              <div class="flex flex-1 justify-center text-center">
+                <p
+                  class="text-2xl font-semibold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-vs-primary to-vs-secondary via-blue-600 animate-ping"
+                  style="
+                    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite !important;
+                  "
+                >
+                  Paused!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-full lg:w-3/5">
+            <div class="login">
+              <div
+                class="info-status !mt-0 !border bg-purple-100 dark:bg-slate-800/90 dark:!border-slate-700 !border-purple-400 rounded-lg"
+              >
+                <center>
+                  <div class="status-holder !shadow-none !px-0 !pb-0 !pt-2">
+                    <div
+                      class="info-title !border-none flex flex-row items-center justify-center !leading-none"
+                    >
+                      <div class="flex w-4 mr-2">
+                        <img
+                          src="assets/img/voucher.png"
+                          class="object-contain opacity-80"
+                        />
+                      </div>
+                      <span class="text-slate-400"> Voucher</span>
+                    </div>
+                    <span
+                      class="text-transparent bg-clip-text bg-gradient-to-r from-vs-primary to-vs-secondary via-blue-500 text-xl font-semibold"
+                      >$(username)</span
+                    >
+                  </div>
+                  <hr
+                    class="border-t border-purple-300 dark:border-white/10 mt-2 mx-2"
+                  />
+
+                  <div class="status-holder !shadow-none !px-0 pb-0 !pt-4">
+                    <div
+                      class="info-title !border-none flex flex-row items-center justify-center !leading-none"
+                    >
+                      <div class="flex w-4 mr-2">
+                        <img
+                          src="assets/img/time.png"
+                          class="object-contain opacity-80"
+                        />
+                      </div>
+                      <span class="text-slate-400"> Remaining Time</span>
+                    </div>
+                    <span
+                      class="odometer text-transparent bg-clip-text bg-gradient-to-r from-vs-primary to-vs-secondary via-blue-500 text-xl font-semibold"
+                      id="pauseRemainTime"
+                    ></span>
+                  </div>
+                  <hr
+                    class="border-t border-purple-300 dark:border-white/10 mt-2 mx-2"
+                  />
+
+                  <div
+                    class="status-holder !shadow-none !px-0 !pb-0 !pt-4 !mb-3"
+                  >
+                    <div
+                      class="info-title !border-none flex flex-row items-center justify-center !leading-none"
+                    >
+                      <div class="flex w-4 mr-2">
+                        <img
+                          src="assets/img/timeexpired.png"
+                          class="object-contain opacity-80"
+                        />
+                      </div>
+                      <span class="text-slate-400"> Expiration Time</span>
+                    </div>
+                    <span
+                      id="expirationTime"
+                      class="text-transparent bg-clip-text bg-gradient-to-r from-vs-primary to-vs-secondary via-blue-500 text-xl font-semibold"
+                    ></span>
+                  </div>
+                </center>
+              </div>
+
+              <br />
+              <!-- Pause Time Button -->
+              <div
+                class="relative flex justify-center items-center w-full mb-4"
+              >
+                <div class="btn-bg"></div>
+                <button
+                  type="button"
+                  id="connectBtn"
+                  onClick="resume(); return false"
+                  class="btn-body"
+                >
+                  <span
+                    class="btn-text"
+                    style="
+                      animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+                    "
+                    >Resume Time</span
+                  >
+                </button>
+              </div>
+              <!-- End -->
+            </div>
+
+            <div class="footer !border-[0px]">
+              <span
+                class="footers text-transparent bg-clip-text bg-gradient-to-r from-vs-primary to-vs-secondary via-blue-600 text-sm"
+              >
+                Designed by: VSENTI
+              </span>
+              <p class="text-slate-500 text-xs mt-1">
+                E-mail Address:
+                <a
+                  href="mailto:samelco_1@yahoo.com"
+                  class="text-slate-400 hover:text-slate-400"
+                  >jrvsenti@gmail.com</a
+                >
+              </p>
+            </div>
+          </div>
+          <script src="assets/js/jquery.min.js"></script>
+          <script src="assets/js/popper.min.js"></script>
+          <script src="assets/js/bootstrap.min.js"></script>
+          <script src="assets/js/toast.min.js"></script>
+          <script src="assets/js/core.js"></script>
+          <script src="assets/js/eload.js"></script>
+          <script src="assets/js/main.js"></script>
+
+          <script>
+            var loginError = "";
+            var mac = "$(mac)";
+            var logoutUrl = "$(link-logout)";
+            var remainingTimer = null;
+            var hotspotAddress = "$(server-address)";
+            var interfaceName = "$(interface-name)";
+
+            $(document).ready(function () {
+              $("#expirationTime").html("Loading...");
+              setTimeout(function () {
+                fetchValidity(1);
+              }, 1000);
+            });
+          </script>
+
+          <div id="loaderDiv" class="spinner hidden">
+            <div class="w-32 h-32">
+              <img src="assets/loading.svg" />
+            </div>
+          </div>
+        </div>
+      </center>
+    </div>
+  </body>
+</html>
